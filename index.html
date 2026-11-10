@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#500000">
+  <title>CS3 | Java Queues Lab</title>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="CS3 Queues Lab home"><span class="brand-symbol">FB</span><span>CS3 <strong>Queues Lab</strong><small>FLOUR BLUFF · JAVA DATA STRUCTURES</small></span></a>
+    <div class="top-actions"><span id="studentChip" class="student-chip">No student selected</span><button id="saveBtn" class="btn small subtle" title="Download a JSON backup">Export JSON</button><button id="importBtn" class="btn small subtle" title="Restore a saved JSON file">Import JSON</button><button id="teacherBtn" class="btn small subtle">Teacher</button></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <div class="side-heading">YOUR PROGRESS</div><div class="progress-track"><div id="progressFill"></div></div><p id="progressLabel" class="tiny muted">0 of 6 modules complete</p>
+      <nav id="moduleNav"></nav>
+      <div class="side-help"><strong>Working independently?</strong><p>Your work saves automatically on this browser. Export JSON at the end, and keep a backup if you change devices.</p></div>
+    </aside>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <input id="filePicker" type="file" accept=".json,application/json" hidden>
+  <script type="module" src="js/app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+CS3 Java Queues Lab · Student Website · v2.2
+Six instructional modules + expanded final assessment multiple-choice bank (30 questions, 12 per student).
+GitHub Pages-ready static site; schemaVersion 3; MC bank version 2.
