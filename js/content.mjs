@@ -16,15 +16,13 @@ System.out.println(q);           // [14, 67]`,
   sections:[
    {title:'Trace the state, not just the output',body:'For every line, keep a small sketch of the queue from front to rear. If a call returns a value, record that separately from the queue state. A trace may mix calls to remove, peek, add, and print.',key:'A printed value is not the same as a changed queue.'},
    {title:'Why loops matter',body:'A common pattern is while (!q.isEmpty()) { System.out.println(q.remove()); }. Each loop removes the front, so a FIFO queue prints elements in insertion order. The queue ends empty. Contrast a loop that only peeks, which would never shrink the queue.',key:'If you use while (!q.isEmpty()), something in the loop must change the condition.'},
-   {title:'Rotation: remove, then add',body:'To move the front element to the rear, save it with remove() and immediately add() it back. Doing this n times rotates the queue n positions. You will also use this idea to solve a parking-garage challenge.',key:'A rotation keeps the same number of elements, but changes their order.'}],
+   {title:'Rotation: remove, then add',body:'To move the front element to the rear, save it with remove() and immediately add() it back. Doing this n times rotates the queue n positions.',key:'A rotation keeps the same number of elements, but changes their order.'}],
   example:`Queue<Integer> q = new LinkedList<Integer>();
-q.add(4);
-q.add(8);
-q.add(12);
-q.add(16);
-q.add(q.remove());    // [8, 12, 16, 4]
-q.add(q.remove());    // [12, 16, 4, 8]
-System.out.println(q.peek());   // 12`,
+q.add(5);
+q.add(2);
+q.add(0);
+q.add(q.remove());    // [2, 0, 5]
+System.out.println(q.peek());   // 2`,
   exercise:'e2',practiceType:'trace'},
  {id:'m3',name:'Queue Algorithms and Stacks',subtitle:'A palindrome from both directions',period:'About 40–55 min',goals:['Contrast FIFO and LIFO','Explain why Queue + Stack can detect a palindrome list','Write a class that constructs, resets, and examines data structures'],
   sections:[
