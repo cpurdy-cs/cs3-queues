@@ -91,10 +91,10 @@ export const QUESTION_BANK=[
  ],[
   ['After [4, 8, 12] rotates once, what is the new front?',['4','8','12','There is no front'],1,'Rotation moves 4 to the rear.'],
   ['What is printed by while (!q.isEmpty()) { println(q.remove()); } for [3, 6]?',['6 then 3','3 then 6','3 forever','No output'],1,'The loop removes the front until the queue is empty.'],
-  ['What bug occurs in while (!q.isEmpty()) { println(q.peek()); }?',['The queue grows','The loop never removes anything','peek throws immediately','The first element gets removed'],1,'Without a changing condition, the loop does not finish.'],
+  ['What bug occurs in while (!q.isEmpty()) { println(q.peek()); }?',['The queue grows infinitely','The loop never removes anything','peek returns immediately','The first element gets removed'],1,'Without a changing condition, the loop does not finish.'],
   ['If q is [2, 5, 8], what does q.remove() return?',['2','5','8','[5, 8]'],0,'remove() returns and deletes the front value.'],
   ['After removing the front of [2, 5, 8], what is q?',['[2, 5]','[5, 8]','[8, 5]','[2, 5, 8]'],1,'The queue becomes [5, 8].'],
-  ['Which two operations rotate the front item to the rear?',['peek then peek','add then clear','add(q.remove())','remove then remove'],2,'q.add(q.remove()) rotates one place.'],
+  ['Which two operations rotate the front item to the rear?',['peek then peek','remove then add','add then remove','remove then remove'],2,'q.add(q.remove()) rotates one place.'],
   ['What is the size of [7, 9] after peek()?',['1','2','3','0'],1,'peek does not remove anything.']
  ],[
   ['Which data structure uses LIFO?',['Queue','Stack','PriorityQueue','LinkedList used as Queue'],1,'Stack pops the most recently pushed item.'],
