@@ -60,7 +60,7 @@ function initSim(i){if(sim?.module===i)return;
 }
 const FIFO_MISSIONS=[
  {start:[18,6,23,9],target:[23,9,41],ops:['remove','add:41','remove'],answer:'23',instructions:'A line begins with [18, 6, 23, 9]. Remove the front customer, add customer 41, and remove the front again. Predict who is now first.'},
- {start:[5,10,15,20],target:[15,20,5,10],ops:['remove','remove','add:5','add:10'],answer:'15',instructions:'A line begins with [5, 10, 15, 20].  Rotate the first TWO customers to the rear, keeping their original order. Predict the new front.'},
+ {start:[5,10,15,20],target:[15,20,5,10],ops:['remove','add:5','remove','add:10'],answer:'15',instructions:'A line begins with [5, 10, 15, 20].  Rotate the first TWO customers to the rear, keeping their original order. Predict the new front.'},
  {start:[7,8,9],target:[9,7,42],ops:['remove','remove','add:7','add:42'],answer:'9',instructions:'A line begins with [7, 8, 9]. Take two customers out, restore only customer 7 to the rear, and then add customer 42. Which customer is served next?'}
 ];
 const PQ_MISSIONS=[
