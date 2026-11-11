@@ -1,4 +1,4 @@
-# CS3 Java Queues Lab · Student Website v2.2
+# CS3 Java Queues Lab · Student Website v2.4
 
 A complete self-paced, six-module Java queues instructional website for Flour Bluff CS3. Host this folder on GitHub Pages. The site uses **only static HTML, CSS, and JavaScript** with a browser-based Java subset interpreter and a self-contained PDF exporter. No API keys, external services, CDN, npm, or backend are required.
 
@@ -67,3 +67,15 @@ Only then does the **blank Java editor** unlock. Students write the import, clas
 The cumulative assessment now draws from a 30-question bank. It selects exactly **one applied/tracing problem and one reasoning/debugging problem from each of the six modules**, for 12 questions total (24 points). Questions are randomized deterministically for each student and answers are shuffled. The prior very simple questions about `String.equals()` and basic method vocabulary have been replaced with queue/heap tracing, FIFO transformations, edge cases, and minimum-cost comparisons. Merge problems define their objective rather than referring to a previous activity without context. Multi-line Java snippets appear as formatted code blocks and are included in the teacher review and student PDF report.
 
 If a student already submitted the final in an earlier version, their existing score and original response snapshot remain unchanged. Incomplete final drafts retain Java solutions and tracing responses but clear the old multiple-choice selections because those prompts have changed. The student must answer the newly selected multiple-choice questions before submitting. Student JSON schemaVersion remains 3.
+
+## Version 2.3 refinements
+
+- Module 1 clearly displays the starting queue before each prediction, including Challenges 2 and 3.
+- Module 2 has two original trace exercises requiring predictions of both printed output and final queue state before step-through. Its rotation knowledge-check answer now explicitly says remove, then add the saved value.
+- Module 3 requires students to click the queue front and stack top, classify the selected pair, and repeat until the comparison is complete. Restarting an individual word list preserves completion credit for the other one.
+- No student progress schema changes; the teacher review package from v2.2 remains compatible.
+
+## Version 2.4 correction
+
+- The second FIFO rotation challenge now requires exactly `remove() → add(5) → remove() → add(10)`, matching the definition of two consecutive rotations. The expected final queue remains `[15, 20, 5, 10]`.
+- No change to student progress format or teacher review compatibility.

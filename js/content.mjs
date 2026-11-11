@@ -16,13 +16,15 @@ System.out.println(q);           // [14, 67]`,
   sections:[
    {title:'Trace the state, not just the output',body:'For every line, keep a small sketch of the queue from front to rear. If a call returns a value, record that separately from the queue state. A trace may mix calls to remove, peek, add, and print.',key:'A printed value is not the same as a changed queue.'},
    {title:'Why loops matter',body:'A common pattern is while (!q.isEmpty()) { System.out.println(q.remove()); }. Each loop removes the front, so a FIFO queue prints elements in insertion order. The queue ends empty. Contrast a loop that only peeks, which would never shrink the queue.',key:'If you use while (!q.isEmpty()), something in the loop must change the condition.'},
-   {title:'Rotation: remove, then add',body:'To move the front element to the rear, save it with remove() and immediately add() it back. Doing this n times rotates the queue n positions.',key:'A rotation keeps the same number of elements, but changes their order.'}],
+   {title:'Rotation: remove, then add',body:'To move the front element to the rear, save it with remove() and immediately add() it back. Doing this n times rotates the queue n positions. You will also use this idea to solve a parking-garage challenge.',key:'A rotation keeps the same number of elements, but changes their order.'}],
   example:`Queue<Integer> q = new LinkedList<Integer>();
-q.add(5);
-q.add(2);
-q.add(0);
-q.add(q.remove());    // [2, 0, 5]
-System.out.println(q.peek());   // 2`,
+q.add(4);
+q.add(8);
+q.add(12);
+q.add(16);
+q.add(q.remove());    // [8, 12, 16, 4]
+q.add(q.remove());    // [12, 16, 4, 8]
+System.out.println(q.peek());   // 12`,
   exercise:'e2',practiceType:'trace'},
  {id:'m3',name:'Queue Algorithms and Stacks',subtitle:'A palindrome from both directions',period:'About 40–55 min',goals:['Contrast FIFO and LIFO','Explain why Queue + Stack can detect a palindrome list','Write a class that constructs, resets, and examines data structures'],
   sections:[
@@ -91,10 +93,10 @@ export const QUESTION_BANK=[
  ],[
   ['After [4, 8, 12] rotates once, what is the new front?',['4','8','12','There is no front'],1,'Rotation moves 4 to the rear.'],
   ['What is printed by while (!q.isEmpty()) { println(q.remove()); } for [3, 6]?',['6 then 3','3 then 6','3 forever','No output'],1,'The loop removes the front until the queue is empty.'],
-  ['What bug occurs in while (!q.isEmpty()) { println(q.peek()); }?',['The queue grows infinitely','The loop never removes anything','peek returns immediately','The first element gets removed'],1,'Without a changing condition, the loop does not finish.'],
+  ['What bug occurs in while (!q.isEmpty()) { println(q.peek()); }?',['The queue grows','The loop never removes anything','peek throws immediately','The first element gets removed'],1,'Without a changing condition, the loop does not finish.'],
   ['If q is [2, 5, 8], what does q.remove() return?',['2','5','8','[5, 8]'],0,'remove() returns and deletes the front value.'],
   ['After removing the front of [2, 5, 8], what is q?',['[2, 5]','[5, 8]','[8, 5]','[2, 5, 8]'],1,'The queue becomes [5, 8].'],
-  ['Which two operations rotate the front item to the rear?',['peek then peek','remove then add','add then remove','remove then remove'],1,'q.add(q.remove()) rotates one place.'],
+  ['Which two operations rotate the front item to the rear?',['peek at the front, then peek again','add a new item, then clear the queue','remove the front value, then add that value to the rear','remove the front value twice'],2,'Save the value returned by remove(), then pass that value to add(). This is also written q.add(q.remove()).'],
   ['What is the size of [7, 9] after peek()?',['1','2','3','0'],1,'peek does not remove anything.']
  ],[
   ['Which data structure uses LIFO?',['Queue','Stack','PriorityQueue','LinkedList used as Queue'],1,'Stack pops the most recently pushed item.'],
