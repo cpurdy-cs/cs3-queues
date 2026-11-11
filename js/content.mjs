@@ -1,5 +1,5 @@
 export const MODULES=[
- {id:'m1',name:'Introduction to Queues',subtitle:'FIFO and the Queue interface',period:'About 35–45 min',goals:['Explain FIFO with front and rear positions','Distinguish add, remove, peek, size, and isEmpty','Write a short method using Queue<Integer>'],
+ {id:'m1',name:'Introduction to Queues',subtitle:'FIFO and the Queue interface',goals:['Explain FIFO with front and rear positions','Distinguish add, remove, peek, size, and isEmpty','Write a short method using Queue<Integer>'],
   sections:[
    {title:'A queue models a waiting line',body:'A queue is a first-in, first-out (FIFO) structure. New items enter at the REAR; the FRONT item leaves first. The item that has been waiting longest gets served first. Think of a line at a ticket window, not a stack of plates.',key:'Front = next to leave. Rear = where the next item arrives.'},
    {title:'Queue is an interface',body:'In Java, Queue<E> is an interface, so we instantiate an implementing class. For a regular FIFO queue, Queue<Integer> q = new LinkedList<Integer>();. The type in angle brackets tells Java what kind of elements the queue holds. Queue is in java.util.',key:'Use Queue<Integer> as the variable type, LinkedList<Integer> as the concrete class.'},
@@ -12,7 +12,7 @@ System.out.println(q.peek());    // 25
 System.out.println(q.remove());  // 25
 System.out.println(q);           // [14, 67]`,
   exercise:'e1',practiceType:'fifo'},
- {id:'m2',name:'Queue Operations and Tracing',subtitle:'Reason about what each statement changes',period:'About 35–50 min',goals:['Trace sequential queue operations','Explain how a queue changes inside a loop','Write a queue rotation algorithm'],
+ {id:'m2',name:'Queue Operations and Tracing',subtitle:'Reason about what each statement changes',goals:['Trace sequential queue operations','Explain how a queue changes inside a loop','Write a queue rotation algorithm'],
   sections:[
    {title:'Trace the state, not just the output',body:'For every line, keep a small sketch of the queue from front to rear. If a call returns a value, record that separately from the queue state. A trace may mix calls to remove, peek, add, and print.',key:'A printed value is not the same as a changed queue.'},
    {title:'Why loops matter',body:'A common pattern is while (!q.isEmpty()) { System.out.println(q.remove()); }. Each loop removes the front, so a FIFO queue prints elements in insertion order. The queue ends empty. Contrast a loop that only peeks, which would never shrink the queue.',key:'If you use while (!q.isEmpty()), something in the loop must change the condition.'},
@@ -26,7 +26,7 @@ q.add(q.remove());    // [8, 12, 16, 4]
 q.add(q.remove());    // [12, 16, 4, 8]
 System.out.println(q.peek());   // 12`,
   exercise:'e2',practiceType:'trace'},
- {id:'m3',name:'Queue Algorithms and Stacks',subtitle:'A palindrome from both directions',period:'About 40–55 min',goals:['Contrast FIFO and LIFO','Explain why Queue + Stack can detect a palindrome list','Write a class that constructs, resets, and examines data structures'],
+ {id:'m3',name:'Queue Algorithms and Stacks',subtitle:'A palindrome from both directions',goals:['Contrast FIFO and LIFO','Explain why Queue + Stack can detect a palindrome list','Write a class that constructs, resets, and examines data structures'],
   sections:[
    {title:'Queue vs. Stack',body:'Queues remove from the front (FIFO). Stacks pop from the top (LIFO, last-in first-out). If you add the same sequence of words to both structures, queue.remove() produces the forward sequence, while stack.pop() produces the reverse sequence.',key:'Same input, opposite removal orders.'},
    {title:'A palindrome list',body:'A list is a palindrome when its words read the same forward and backward, such as one two three two one. Compare words, not characters: "racecar is racecar" succeeds because the first and last WORDS match. Use String.equals, not ==, to compare the text.',key:'Compare words with equals().'},
@@ -44,7 +44,7 @@ while (!q.isEmpty()) {
 }
 return true;`,
   exercise:'e3',practiceType:'palindrome'},
- {id:'m4',name:'Implementing IntQueue',subtitle:'Build FIFO behavior with an ArrayList',period:'About 45–65 min',goals:['Identify the storage and methods needed in a queue class','Implement remove and peek safely','Test repeated operations and boundary cases'],
+ {id:'m4',name:'Implementing IntQueue',subtitle:'Build FIFO behavior with an ArrayList',goals:['Identify the storage and methods needed in a queue class','Implement remove and peek safely','Test repeated operations and boundary cases'],
   sections:[
    {title:'An ArrayList can be the storage',body:'A queue is a behavior contract, not a particular built-in class. To implement our own IntQueue, we can store integers in an ArrayList<Integer>. Its index 0 represents the FRONT of the queue, and the last index represents the REAR.',key:'listOfInts.add(item) appends at the rear.'},
    {title:'Design your operations',body:'add(item) appends. remove() reads and deletes index 0. peek() reads index 0 without deletion. isEmpty() can delegate to the list. toString() can delegate to the list as well, producing familiar bracketed output.',key:'ArrayList.remove(0) shifts later elements left; appropriate for this teaching implementation.'},
@@ -60,7 +60,7 @@ public void add(int item) {
 }
 // Implement remove, peek, isEmpty, toString.`,
   exercise:'e4',practiceType:'arraylist'},
- {id:'m5',name:'Priority Queues and Heaps',subtitle:'Minimum first, not first in',period:'About 40–50 min',goals:['Contrast FIFO with a Java PriorityQueue','Predict removal order for integers and strings','Read a min-heap and avoid assumptions about toString'],
+ {id:'m5',name:'Priority Queues and Heaps',subtitle:'Minimum first, not first in',goals:['Contrast FIFO with a Java PriorityQueue','Predict removal order for integers and strings','Read a min-heap and avoid assumptions about toString'],
   sections:[
    {title:'A different rule for leaving the queue',body:'PriorityQueue<Integer> retrieves the smallest item under natural ordering. It is NOT a FIFO queue. Adding 11, 10, and 7 will remove 7, then 10, then 11, regardless of insertion order. A comparator can also define a different priority, but this unit uses natural ordering.',key:'The next item removed is the minimum, not the oldest.'},
    {title:'The binary min-heap beneath it',body:'Java PriorityQueue is typically implemented as a binary heap. The root is the minimum, and each parent is no greater than its children. That is a heap property, not a promise that the complete internal array is sorted. Each add/remove may rearrange multiple nodes.',key:'Root has minimum; siblings and other nodes are not globally sorted.'},
@@ -75,7 +75,7 @@ System.out.println(pq.remove()); // 10
 System.out.println(pq.remove()); // 11
 // Don't treat pq.toString() as sorted.`,
   exercise:'e5',practiceType:'priority'},
- {id:'m6',name:'Priority Queue Algorithms',subtitle:'Minimum-cost array reduction',period:'About 60–90 min',goals:['Discover why different merge orders have different costs','Compare, improve, and justify your own merge strategy','Design and independently code a general Java solution'],
+ {id:'m6',name:'Priority Queue Algorithms',subtitle:'Minimum-cost array reduction',goals:['Discover why different merge orders have different costs','Compare, improve, and justify your own merge strategy','Design and independently code a general Java solution'],
   sections:[],
   example:'',
   exercise:'e6',practiceType:'reduction'}

@@ -1,4 +1,4 @@
-# CS3 Java Queues Lab · Student Website v2.4
+# CS3 Java Queues Lab · Student Website v2.5
 
 A complete self-paced, six-module Java queues instructional website for Flour Bluff CS3. Host this folder on GitHub Pages. The site uses **only static HTML, CSS, and JavaScript** with a browser-based Java subset interpreter and a self-contained PDF exporter. No API keys, external services, CDN, npm, or backend are required.
 
@@ -79,3 +79,7 @@ If a student already submitted the final in an earlier version, their existing s
 
 - The second FIFO rotation challenge now requires exactly `remove() → add(5) → remove() → add(10)`, matching the definition of two consecutive rotations. The expected final queue remains `[15, 20, 5, 10]`.
 - No change to student progress format or teacher review compatibility.
+
+## Version 2.5 presentation-only change
+
+Removed estimated activity and module durations from the student site (overview, learning path, and module headers). There are no changes to exercises, scoring, save keys, JSON schema, or completion requirements. Existing browser progress and teacher review compatibility are preserved.
