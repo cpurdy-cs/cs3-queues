@@ -6,7 +6,7 @@ This site contains a deliberately **restricted Java interpreter** written in Jav
 
 - One Java class per editor; optional `public`, `private`, `protected`, `static`, `final` modifiers; fields, constructors, methods, `return`; Java imports are accepted and ignored (libraries below are simulated).
 - Primitive `int`, `boolean`, `double` numeric literals; `String`, `int[]` parameters; objects and `null`; basic integer arithmetic, relational/equality operators, `!`, `&&`, `||`, assignments, `+=`, `-=`, `++`, `--`, array indices and `.length`.
-- `if / else`, `while`, enhanced `for (int v : values)`, classic `for (int i = 0; i < n; i++)`, blocks and local variables.
+- `if / else`, `while`, `break`, `continue` (within `while`, classic `for`, and enhanced `for` loops), enhanced `for (int v : values)`, classic `for (int i = 0; i < n; i++)`, blocks and local variables.
 - `new LinkedList<E>()`, `new PriorityQueue<E>()`, `new ArrayList<E>()`, `new Stack<E>()`. The simulator supports `add`, `remove`, `peek`, `isEmpty`, `size`, `get`, `set`, `contains`, `clear`, `push`, `pop` and `toString` where applicable.
 - String methods `equals`, `split`, `trim`, `strip`, `isEmpty`, `substring`, `charAt` and `toString`; `Integer.MIN_VALUE` / `Integer.MAX_VALUE`; string concatenation.
 - Full-class student solutions for `PalinList` and `IntQueue`, three static methods in the Module 5 priority-queue class, and the two final assessment methods.
@@ -23,6 +23,6 @@ This site contains a deliberately **restricted Java interpreter** written in Jav
 
 If the interpreter rejects an otherwise valid advanced Java construct, use the supported subset documented here and report the issue to the teacher. It does not necessarily mean the code is invalid in Java.
 
-## Final assessment behavior (v2.0)
+## Final assessment behavior (v2.6)
 
-The final is a single graded submission in the browser. Two independent Java methods are tested when students submit. The PDF report is generated locally without any external library or server and includes the submitted code and test outcomes. Graded feedback and partial credit can be assigned after submission in the separate teacher reviewer.
+The final supports student review and repeat submissions. After each attempt, students can see which questions or tests were incorrect without receiving the multiple-choice or tracing answer key. Both Java methods are tested when students submit. The PDF report is generated locally without any external library or server and includes the submitted code and test outcomes. Graded feedback and partial credit can be assigned after submission in the separate teacher reviewer.

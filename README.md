@@ -1,4 +1,4 @@
-# CS3 Java Queues Lab · Student Website v2.5
+# CS3 Java Queues Lab · Student Website v2.6
 
 A complete self-paced, six-module Java queues instructional website for Flour Bluff CS3. Host this folder on GitHub Pages. The site uses **only static HTML, CSS, and JavaScript** with a browser-based Java subset interpreter and a self-contained PDF exporter. No API keys, external services, CDN, npm, or backend are required.
 
@@ -18,7 +18,7 @@ A complete self-paced, six-module Java queues instructional website for Flour Bl
 4. **Implementing IntQueue:** Design and test an ArrayList-backed integer queue, including an explicitly defined custom empty-state sentinel.
 5. **Priority Queues and Heaps:** Work through three interactive min-heap challenges and implement **three methods**: `drainNatural`, `sumSmallest`, `processEvents`.
 6. **Priority Queue Algorithms:** Discover the minimum-cost strategy through two competing merge plans, an independent optimization challenge, and written reasoning; then write the complete `ArrayReduction` Java class in a blank editor.
-7. **Cumulative final assessment (unlocked after all six modules):** 12 multiple-choice questions selected from a 30-question bank (24 points), four two-part code traces (32 points), and two new Java methods (44 points). There is **one graded submission**, with a teacher-controlled reset. A student can download a **multipage PDF assessment report** showing their answers, source code, results, and automatically calculated grade, without an answer key. The final assessment is also included in the JSON export.
+7. **Cumulative final assessment (unlocked after all six modules):** 12 multiple-choice questions selected from a 30-question bank (24 points), four two-part code traces (32 points), and two new Java methods (44 points). Students may **review incorrect responses, revise, and resubmit**. Earlier attempts and the best score are retained in the JSON export; a teacher reset is no longer necessary for ordinary retries. A student can download a **multipage PDF assessment report** showing their answers, source code, results, and automatically calculated grade, without an answer key. The final assessment is also included in the JSON export.
 
 Lessons are written to be **complete instruction for students who have never seen these topics**. They do not depend on a separate slide deck or lab handout.
 
@@ -83,3 +83,14 @@ If a student already submitted the final in an earlier version, their existing s
 ## Version 2.5 presentation-only change
 
 Removed estimated activity and module durations from the student site (overview, learning path, and module headers). There are no changes to exercises, scoring, save keys, JSON schema, or completion requirements. Existing browser progress and teacher review compatibility are preserved.
+
+## Version 2.6 update: corrections and retries
+
+- Module 6 design-question validation now keeps the form in place after an incorrect response; a student can change an answer, check again, and complete the discovery. More specific feedback guides corrections. Already completed Module 6 progress stays complete.
+- The Java subset interpreter supports `break;` and `continue;` inside `while`, ordinary `for`, and enhanced `for` loops, including nested loops; `continue` in a classic `for` loop still runs the update expression.
+- Teacher access on the student site has an explicit **Exit teacher tools** button, including while preview is active.
+- The cumulative assessment allows unlimited review-and-retry cycles. After submission, students see incorrect multiple-choice and trace items (without revealing correct answers), interpreter errors, and failed programming tests. Students can edit responses and resubmit. The JSON includes each graded attempt in `final.history` and `final.bestScore`, while `final.grading` holds the most recent scored submission. A PDF continues to show the most recent submitted assessment.
+- Editors now support **Ctrl+Z** for undo and **Ctrl+Y / Ctrl+Shift+Z** for redo, including the Tab, Enter, and closing-brace formatting shortcuts. History survives routine editor re-renders.
+- Existing storage key and `schemaVersion: 3` remain unchanged. The updated local teacher reviewer displays answer keys and previous attempts.
+
+**Compatibility:** Previous v2.5 local saves and exported JSON import without resetting modules or completed assessments. A previously submitted final can be reviewed and retried; its grade is archived when the student starts a retry. Keep the teacher-only ZIP out of the public repository.

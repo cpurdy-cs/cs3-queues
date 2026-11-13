@@ -18,7 +18,7 @@ function tokenize(src){
   tokens.push({v:'EOF',pos:src.length});return tokens;
 }
 class Parser{
-  constructor(src){this.t=tokenize(src);this.i=0;}
+  constructor(src){this.t=tokenize(src);this.i=0;this.loopDepth=0;}
   peek(n=0){return this.t[this.i+n]?.v??'EOF';}
   eat(v){if(this.peek()!==v)throw Error('Expected '+v+' but found '+this.peek()+' at position '+this.t[this.i].pos);this.i++;}
   next(){return this.t[this.i++];}
@@ -41,12 +41,14 @@ class Parser{
   block(){this.eat('{');let statements=[];while(this.peek()!=='}'&&this.peek()!=='EOF')statements.push(this.stmt());this.eat('}');return {kind:'block',statements};}
   stmt(){if(this.peek()==='{')return this.block();if(this.peek()===';'){this.eat(';');return {kind:'nop'};}
     if(this.peek()==='if'){this.eat('if');this.eat('(');let cond=this.expr();this.eat(')');let yes=this.stmt();let no=null;if(this.peek()==='else'){this.eat('else');no=this.stmt();}return {kind:'if',cond,yes,no};}
-    if(this.peek()==='while'){this.eat('while');this.eat('(');let cond=this.expr();this.eat(')');return {kind:'while',cond,body:this.stmt()};}
+    if(this.peek()==='while'){this.eat('while');this.eat('(');let cond=this.expr();this.eat(')');this.loopDepth++;let body;try{body=this.stmt();}finally{this.loopDepth--;}return {kind:'while',cond,body};}
     if(this.peek()==='for'){
-      this.eat('for');this.eat('(');let mark=this.i;try{const type=this.type();const name=this.id();if(this.peek()!==':')throw Error('classic');this.eat(':');const iter=this.expr();this.eat(')');return {kind:'foreach',type,name,iter,body:this.stmt()};}catch{this.i=mark;}
-      let init=null;if(this.peek()!==';')init=this.forPart();this.eat(';');let cond=this.peek()!==';'?this.expr():null;this.eat(';');let incr=this.peek()!==')'?this.expr():null;this.eat(')');return {kind:'for',init,cond,incr,body:this.stmt()};
+      this.eat('for');this.eat('(');let mark=this.i,foreach=null;try{const type=this.type();const name=this.id();if(this.peek()!==':')throw Error('classic');this.eat(':');const iter=this.expr();this.eat(')');foreach={type,name,iter};}catch{this.i=mark;}
+      if(foreach){this.loopDepth++;let body;try{body=this.stmt();}finally{this.loopDepth--;}return {kind:'foreach',...foreach,body};}
+      let init=null;if(this.peek()!==';')init=this.forPart();this.eat(';');let cond=this.peek()!==';'?this.expr():null;this.eat(';');let incr=this.peek()!==')'?this.expr():null;this.eat(')');this.loopDepth++;let body;try{body=this.stmt();}finally{this.loopDepth--;}return {kind:'for',init,cond,incr,body};
     }
     if(this.peek()==='return'){this.eat('return');let x=this.peek()!==';'?this.expr():null;this.eat(';');return {kind:'return',expr:x};}
+    if(this.peek()==='break'||this.peek()==='continue'){const kind=this.next().v;if(!this.loopDepth)throw Error(kind+' is only valid inside a loop');this.eat(';');return {kind};}
     let result=this.forPart();this.eat(';');return result;
   }
   forPart(){let mark=this.i;try{let type=this.type(),name=this.id();if(!['=',';',')',','].includes(this.peek()))throw Error('expression');let init=null;if(this.peek()==='='){this.eat('=');init=this.expr();}return {kind:'declare',type,name,init};}catch{this.i=mark;return {kind:'expr',expr:this.expr()};}}
@@ -94,14 +96,15 @@ export class JavaVM{
   }
   exec(node,s){this.tick();switch(node.kind){
     case 'nop':return null;
-    case 'block':{let inner=new Scope(s);for(const st of node.statements){let r=this.exec(st,inner);if(r?.returned)return r;}return null;}
+    case 'block':{let inner=new Scope(s);for(const st of node.statements){let r=this.exec(st,inner);if(r?.returned||r?.control)return r;}return null;}
     case 'declare':s.def(node.name,node.init?this.eval(node.init,s):['int','double'].includes(node.type)?0:node.type==='boolean'?false:null);return null;
     case 'expr':this.eval(node.expr,s);return null;
     case 'return':return {returned:true,value:node.expr?this.eval(node.expr,s):undefined};
+    case 'break':case 'continue':return {control:node.kind};
     case 'if':return this.exec(this.eval(node.cond,s)?node.yes:(node.no??{kind:'nop'}),s);
-    case 'while':{while(this.eval(node.cond,s)){this.tick();let r=this.exec(node.body,s);if(r?.returned)return r;}return null;}
-    case 'foreach':{const arr=this.eval(node.iter,s);let items=Array.isArray(arr)?arr.slice():arr?.items?.slice();if(!items)throw Error('Enhanced for loop requires an array or collection');for(const item of items){this.tick();let inner=new Scope(s);inner.def(node.name,item);let r=this.exec(node.body,inner);if(r?.returned)return r;}return null;}
-    case 'for':{let inner=new Scope(s);if(node.init)this.exec(node.init,inner);while(node.cond?this.eval(node.cond,inner):true){this.tick();let r=this.exec(node.body,inner);if(r?.returned)return r;if(node.incr)this.eval(node.incr,inner);}return null;}
+    case 'while':{while(this.eval(node.cond,s)){this.tick();let r=this.exec(node.body,s);if(r?.returned)return r;if(r?.control==='break')break;if(r?.control==='continue')continue;}return null;}
+    case 'foreach':{const arr=this.eval(node.iter,s);let items=Array.isArray(arr)?arr.slice():arr?.items?.slice();if(!items)throw Error('Enhanced for loop requires an array or collection');for(const item of items){this.tick();let inner=new Scope(s);inner.def(node.name,item);let r=this.exec(node.body,inner);if(r?.returned)return r;if(r?.control==='break')break;if(r?.control==='continue')continue;}return null;}
+    case 'for':{let inner=new Scope(s);if(node.init)this.exec(node.init,inner);while(node.cond?this.eval(node.cond,inner):true){this.tick();let r=this.exec(node.body,inner);if(r?.returned)return r;if(r?.control==='break')break;if(node.incr)this.eval(node.incr,inner);if(r?.control==='continue')continue;}return null;}
     default:throw Error('Unsupported statement '+node.kind);
   }}
   get(node,s){if(node.kind==='ident'){if(node.name==='this')return s.get('this');if(node.name==='Integer')return s.get('Integer');try{return s.get(node.name);}catch(e){let obj=s.get('this');if(obj&&Object.hasOwn(obj.__fields,node.name))return obj.__fields[node.name];throw e;}}
